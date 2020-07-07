@@ -8,15 +8,21 @@ def get_fibo_until(low_limit, high_limit):
     
     first_num = 0
     second_num = 1
+    fibo_numbers = []
     if low_limit >= 0:
-        print(first_num)
-        print(second_num)
+        fibo_numbers.append(first_num)
+        fibo_numbers.append(second_num)
     while first_num + second_num <= high_limit:
         next_num = first_num  + second_num
         if next_num >= low_limit:
-            print(next_num)
+            fibo_numbers.append(next_num)
         first_num = second_num
         second_num = next_num
+
+    for number in fibo_numbers:
+        print(number)
+
+    write_output_to_file(fibo_numbers)
 
 def generate_new_numbers():
     regenerate = True
@@ -41,9 +47,17 @@ def check_if_fibo(number):
         next_num = first_num  + second_num
         first_num = second_num
         second_num = next_num
+    
     if next_num == number:
+        write_output_to_file([number, True])
         return True
+    write_output_to_file([number, False])
     return False
+
+def write_output_to_file(data):
+    with open('output.txt','w') as wb:
+        wb.writelines(str(data))
+
 
 def fibo_functions():
     try:
